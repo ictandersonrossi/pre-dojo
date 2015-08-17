@@ -1,0 +1,65 @@
+
+
+
+
+Neste demo foi utilizado :
+
+Maven
+Spring Frame Work 4
+Junit 4
+Spring Test
+Mockito
+Log4J
+
+
+Como testar :
+
+Para rodar a aplicação deverá ser executado a classe App que está dentro do pacote  app , o arquivo de log deverá
+ ser passado como parâmetro para a aplicação.
+
+
+Estrutura :
+
+Para a leitura do log foi adotado o padrão Observer e implementado utilizando o Spring , ou seja, este padrão foi 
+implementado seguindo a estrutura de nomes utilizadas pelo Spring, para isso foi criado os pacotes match.observer .
+
+A idéia é a seguinte : a cada linha de log lida serão disparados todos eventos (classe ProcessGameLog.java ,
+método processLine).
+
+Cada evento irá tratar uma parte especifica do log , as classes dos eventos são:
+
+AddPlayer.java , Localiza o nome dos players e adiciona na estrutura lógica.
+BeginEndMatch.java , Identifica o inicio e fim de uma partida.
+CountDie.java , Identifica quando um player é "morto" .
+CountKill.java , Identifica quando o player é o "assassino".
+CountKillWeapon.java , Identifica a arma utilizada pelo player.
+
+Como pode-se ver para cada elemento da dinâmica do jogo existe um evento que irá identificar este elemento e 
+disparar a ação necessária nas classes de "negocios"
+
+Desta forma com a evolução do jogo novos elementos poderão ser adicionados e assim novos eventos devem ser 
+codificados, logo a evolução se dá de maneira simples sem que exista dependência entre os elementos.
+
+Para isso os novos eventos devem ser codificados no pacote match.observer.handle e as classes devem implementar a 
+interface ApplicationListener .
+
+O disparo dos eventos será feito de forma automática pelo Spring , observe que o Spring irá disparar TODOS os 
+eventos , desta forma fica a cargo de cada evento saber se ele deve ou não ser executado.
+
+Pacotes :
+
+O pacote app contém apenas o startup para testes , nele foi implementado a camada de "view"
+
+O pacote match.exception é nossa exceção de negocio , usada para encapsular outras exceções e lançar exceções de 
+negócio.
+
+O pacote match.scratchData.bean são as classes usadas para representar o log de forma lógica .
+
+O pacote match.scratchData.service são os serviços utilizados para manipular as informações do log.
+
+Os pacotes match.observer é a estrutura que representa o pattern Observer , implementado conforme a conveção do 
+Frame Work Spring.
+
+Qualquer dúvida :  ti.anderson.rossi@gmail.com
+
+
